@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support · Trolus</title>
+<meta name="description" content="Help for Trolus, the HTTP and REST API client for iPhone: answers to common questions and how to reach us.">
+<meta name="theme-color" content="#0F1113">
+<meta property="og:title" content="Trolus support">
+<meta property="og:description" content="Answers to common questions about Trolus and how to report a problem.">
+<meta property="og:type" content="website">
+<link rel="icon" href="../assets/icon.png">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../">
+      <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#0F1113" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h10"/><path d="M10 6l6 6-6 6"/><path d="M20 5v14"/></svg></span>
+      trolus
+    </a>
+    <nav class="nav" aria-label="Site">
+      <a href="./" aria-current="page">Support</a>
+      <a href="../privacy/">Privacy</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="doc page-head" data-enter>
+    <p class="eyebrow"><span class="m get">GET</span> /support</p>
+    <h1>Trolus <em>support</em></h1>
+    <p class="lede">Help with sending requests, reading responses and setting up environments in Trolus for iPhone.</p>
+
+    <div class="card exchange" aria-label="Example of a request and response in Trolus" data-enter="2">
+      <div class="row"><span class="m post">POST</span><span class="url">https://httpbin.org/anything</span></div>
+      <div class="status"><span class="code">200</span><span class="reason">OK</span></div>
+      <div class="meta"><span>705 ms</span><span>1.2 KB</span><span>JSON</span></div>
+<pre>{
+  <span class="k">"json"</span>: {
+    <span class="k">"name"</span>: <span class="s">"Jane Cooper"</span>,
+    <span class="k">"role"</span>: <span class="s">"admin"</span>
+  },
+  <span class="k">"method"</span>: <span class="s">"POST"</span>,
+  <span class="k">"url"</span>: <span class="s">"https://httpbin.org/anything"</span>
+}</pre>
+    </div>
+  </section>
+
+  <div class="doc prose">
+    <div class="card contact">
+      <div>
+        <h2>Report a problem or ask a question</h2>
+        <p>Open an issue on GitHub with your iOS version, the method and URL you sent (hide any tokens) and what you expected.</p>
+      </div>
+      <a class="btn" href="https://github.com/grapelloid/trolus/issues/new">Open an issue
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <h2>Common questions</h2>
+    <div class="faq">
+      <details>
+        <summary>My request to localhost fails on iPhone</summary>
+        <div class="answer">
+          <p>On a real iPhone, <code>localhost</code> and <code>127.0.0.1</code> point to the phone itself, not to your computer. Use your computer's address on the local network instead, for example <code>http://192.168.1.20:8080</code>, and make sure the server listens on all interfaces, not only on <code>127.0.0.1</code>.</p>
+          <p>The first time you reach a local address, iOS asks for permission to use the local network. If you declined, turn it back on in Settings › Privacy &amp; Security › Local Network › Trolus.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Can I send plain HTTP, not only HTTPS?</summary>
+        <div class="answer"><p>Yes. Trolus sends both <code>http://</code> and <code>https://</code> requests, so you can test development servers that have no certificate. If you leave out the scheme, Trolus adds <code>http://</code>.</p></div>
+      </details>
+      <details>
+        <summary>How do environments and variables work?</summary>
+        <div class="answer">
+          <p>In Settings › Environments, create an environment such as <code>local</code> or <code>staging</code> and add variables to it, for example <code>base</code> = <code>https://api.example.com</code>.</p>
+          <p>Write <code>{{base}}/users</code> in the URL and Trolus fills in the value of the active environment. Variables work in the URL, query parameters, headers, body and auth token. Switch environments from the menu at the top of the Request screen.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Which methods, bodies and auth types are supported?</summary>
+        <div class="answer">
+          <p>Methods: <span class="m get">GET</span> <span class="m post">POST</span> <span class="m put">PUT</span> <span class="m patch">PATCH</span> <span class="m delete">DELETE</span>, plus HEAD and OPTIONS.</p>
+          <p>Bodies: JSON, plain text and URL-encoded form. Auth: Bearer token and Basic (username and password). Trolus adds <code>Content-Type</code> and <code>Authorization</code> for you unless you set them yourself in Headers.</p>
+        </div>
+      </details>
+      <details>
+        <summary>A request hangs or times out</summary>
+        <div class="answer"><p>The default timeout is 30 seconds. Change it in Settings › Network, from 5 to 120 seconds. You can also cancel a request in progress from the response screen.</p></div>
+      </details>
+      <details>
+        <summary>Where is my history stored, and how do I delete it?</summary>
+        <div class="answer"><p>Trolus keeps your last 200 requests with their responses on your iPhone only. Swipe left on a request in History to delete it, or tap Clear in History or Clear history in Settings to remove everything. Deleting the app removes all of its data. See the <a class="link" href="../privacy/">privacy policy</a> for details.</p></div>
+      </details>
+      <details>
+        <summary>Why are some keys in a JSON response not where I expect?</summary>
+        <div class="answer"><p>They are. Trolus formats JSON in the exact key order the server sent. If the order looks different from another tool, that tool is sorting the keys.</p></div>
+      </details>
+    </div>
+
+    <h2>Requirements</h2>
+    <ul>
+      <li>iPhone with iOS 17 or later</li>
+      <li>An internet connection or access to the local network where your server runs</li>
+    </ul>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <span>Trolus by DC network solutions OU</span>
+    <nav aria-label="Footer">
+      <a href="./">Support</a>
+      <a href="../privacy/">Privacy</a>
+    </nav>
+  </div>
+</footer>
+</body>
+</html>
